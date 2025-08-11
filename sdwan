@@ -55,6 +55,10 @@ vEdge / cEdge 路由器（客户现场）
 2.config ter 受到vmanager限制
 
 
+vManage/vSmart/vBond 的 API、SSH、HTTPS 管理口是否直接暴露在可达网络
+SNMP、Netconf、Telnet、FTP 开放
+团体字权限校验，如何利用cisco-mid进行测试
+
 
 
 
