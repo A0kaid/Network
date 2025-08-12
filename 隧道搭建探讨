@@ -1,1 +1,50 @@
+情况假设，已知内网192.168.71.1/24存在windows机器，3389等端口
+interface Loopback900
+ description *** IP Publico ***
+ ip address 123.456.789.193 255.255.255.255
+!         
+interface GigabitEthernet0/0/0
+ description *** xxxxxxxxxxxxxxxx ***
+ no ip address
+ load-interval 30
+ negotiation auto
+!         
+interface GigabitEthernet0/0/0.20
+ description *** VRF:publico / xxxxxx | 500/100Mbps ***
+ encapsulation dot1Q 20
+ ip address 100.618.613.126 255.255.255.252
+ no ip redirects
+ no ip unreachables
+ no ip proxy-arp
+ ip nat outside
+ no cdp enable
+ service-policy output SHAPE-20
+!         
+interface GigabitEthernet0/0/1
+ description *** LAN ***
+ ip address 192.168.71.1 255.255.255.0
+ ip nat inside
+ negotiation auto
+!         
+如何访问
+1.采用静态端口映射，采用ip nat inside source static tcp 192.168.71.xx 3389 123.456.789.193 3389 extendable 通过访问公网3389端口来访问内网（缺点：效率低下,大段探测困难）
+2.利用隧道搭建技术（排除pptp 不安全）优先考虑l2tp
+下面这段配置分析问题所在，为什么客户端连接成功之后无法ping通？
+interface Virtual-Template101
+ ip unnumbered GigabitEthernet0/0/1
+ ip nat inside
+ peer default ip address pool xxz
+ keepalive 5
+ ppp authentication ms-chap ms-chap-v2 pap chap
 
+vtp mode transparent
+multilink bundle-name authenticated
+vpdn enable
+!         
+vpdn-group 101
+ ! Default L2TP VPDN group
+ ! Default PPTP VPDN group
+ accept-dialin
+  protocol any
+  virtual-template 101
+ no l2tp tunnel authentication
