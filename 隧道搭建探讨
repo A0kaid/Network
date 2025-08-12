@@ -48,3 +48,36 @@ vpdn-group 101
   protocol any
   virtual-template 101
  no l2tp tunnel authentication
+客户端获取如下
+ipconfig
+
+Windows IP Configuration
+
+
+Ethernet adapter Ethernet:
+
+   Connection-specific DNS Suffix  . :
+   Link-local IPv6 Address . . . . . : fe80::51a:e330:1379:fe35%15
+   IPv4 Address. . . . . . . . . . . : 172.20.xx.xx
+   Subnet Mask . . . . . . . . . . . : 255.255.240.0
+   Default Gateway . . . . . . . . . : 172.20.0.1
+
+PPP adapter PT:
+
+   Connection-specific DNS Suffix  . :
+   IPv4 Address. . . . . . . . . . . : 192.168.71.9
+   Subnet Mask . . . . . . . . . . . : 255.255.255.255
+   Default Gateway . . . . . . . . . : 0.0.0.0
+
+Ethernet adapter Ethernet 2:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . :
+
+C:\Users\hapi\Desktop\gongjijiaoben\cisco-xe-ui>ping 192.168.71.120
+
+Pinging 192.168.71.120 with 32 bytes of data:
+Request timed out.
+
+Ping statistics for 192.168.71.120:
+    Packets: Sent = 1, Received = 0, Lost = 1 (100% loss),
